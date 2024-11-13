@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emissão de Notas Fiscais - Serviços Prestados</title>
+    <style>
+        /* Estilo para o menu */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        ul li {
+            float: left;
+            border-right: 1px solid #bbb;
+        }
+
+        ul li:last-child {
+            border-right: none;
+        }
+
+        ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        ul li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #04AA6D;
+        }
+
+        /* Estilo para o restante da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .filtro {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .filtro input {
+            padding: 5px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #999;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-imprimir {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 20px auto 0;
+            width: 150px;
+            text-align: center;
+        }
+
+        .btn-imprimir:hover {
+            background-color: #555;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            width: 600px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            float: right;
+        }
+
+        .close-btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<ul>
+    <li><a class="active" href="#index.html">Início</a></li>
+    <li><a href="#conCliente.html">Cliente</a></li>
+    <li><a href="#conProduto">Produtos</a></li>
+    <li><a href="#conServicos">Serviços</a></li>
+</ul>
+
+<div class="container">
+    <h1>Emissão de Notas Fiscais - Serviços Prestados</h1>
+
+    <div class="filtro">
+        <label for="data">Filtrar por Data:</label>
+        <input type="date" id="data" onchange="filtrarData()">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Serviço Prestado</th>
+                <th>Nome do Cliente</th>
+                <th>Valor Unitário (R$)</th>
+                <th>Valor Total (R$)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaNotas">
+            <tr data-date="2024-10-28">
+                <td>2024-10-28</td>
+                <td>Corte de Cabelo Masculino</td>
+                <td>João Carlos Matos</td>
+                <td>60,00</td>
+                <td>60,00</td>
+                <td><button class="btn-imprimir" onclick="abrirNotaFiscal('Corte de Cabelo Masculino', 'João Carlos Matos', '60,00', '60,00')">Imprimir</button></td>
+            </tr>
+            <tr data-date="2024-10-27">
+                <td>2024-10-27</td>
+                <td>Barba e Bigode</td>
+                <td>Tiago Freitas</td>
+                <td>50,00</td>
+                <td>50,00</td>
+                <td><button class="btn-imprimir" onclick="abrirNotaFiscal('Barba e Bigode', 'Tiago Freitas', '50,00', '50,00')">Imprimir</button></td>
+            </tr>
+            <tr data-date="2024-10-26">
+                <td>2024-10-26</td>
+                <td>Excesso Sobrancelhas</td>
+                <td>Cesar Paulo</td>
+                <td>30,00</td>
+                <td>30,00</td>
+                <td><button class="btn-imprimir" onclick="abrirNotaFiscal('Excesso Sobrancelhas', 'Cesar Paulo', '30,00', '30,00')">Imprimir</button></td>
+            </tr>
+            <tr data-date="2024-10-25">
+                <td>2024-10-25</td>
+                <td>BARBA AVULSA</td>
+                <td>Pedro Silva</td>
+                <td>40,00</td>
+                <td>40,00</td>
+                <td><button class="btn-imprimir" onclick="abrirNotaFiscal('BARBA AVULSA', 'Pedro Silva', '40,00', '40,00')">Imprimir</button></td>
+            </tr>
+            <tr data-date="2024-10-24">
+                <td>2024-10-24</td>
+                <td>Combo masculino completo (Barba e bigode, cabelo e sobrancelhas excesso)</td>
+                <td>José Santiago</td>
+                <td>
+                    60,00<br>
+                    50,00<br>
+                    30,00
+                </td>
+                <td>140,00</td>
+                <td>
+                    <button class="btn-imprimir" onclick="abrirNotaFiscal('Combo masculino completo (Barba e bigode, cabelo e sobrancelhas excesso)', 'José Santiago', '60,00<br>50,00<br>30,00', '140,00')">
+  Imprimir
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+            
+
+           
+           
+           
+           
+           
+        </tbody>
+    </table>
+</div>
+
+<div id="modalNotaFiscal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="fecharModal()">X</button>
+        <h2>Nota Fiscal</h2>
+        <p><strong>Serviço Prestado:</strong> <span id="descricaoItem"></span></p>
+        <p><strong>Nome do Cliente:</strong> <span id="nomeCliente"></span></p>
+        <p><strong>Valor Unitário:</strong> R$ <span id="valorUnitario"></span></p>
+        <p><strong>Valor Total:</strong> R$ <span id="valorTotal"></span></p>
+        <button class="btn-imprimir" onclick="imprimirNota()">Imprimir Nota</button>
+    </div>
+</div>
+
+<script>
+    function filtrarData() {
+        const dataSelecionada = document.getElementById('data').value;
+        const tabelaNotas = document.getElementById('tabelaNotas');
+        const linhas = tabelaNotas.getElementsByTagName('tr');
+
+        for (let i = 0; i < linhas.length; i++) {
+            const linha = linhas[i];
+            const dataNota = linha.getAttribute('data-date');
+            linha.style.display = dataNota === dataSelecionada || dataSelecionada === '' ? '' : 'none';
+        }
+    }
+
+    function abrirNotaFiscal(servico, cliente, valorUnitario, valorTotal) {
+        document.getElementById('descricaoItem').innerText = servico;
+        document.getElementById('nomeCliente').innerText = cliente;
+        document.getElementById('valorUnitario').innerText = valorUnitario;
+        document.getElementById('valorTotal').innerText = valorTotal;
+
+        document.getElementById('modalNotaFiscal').style.display = 'flex';
+    }
+
+    function fecharModal() {
+        document.getElementById('modalNotaFiscal').style.display = 'none';
+    }
+
+    function imprimirNota() {
+        window.print();
+    }
+</script>
+
+</body>
+</html>
