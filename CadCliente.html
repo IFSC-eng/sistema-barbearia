@@ -1,25 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema Barbearia - Cadastro de Clientes</title>
   <link rel="stylesheet" type="text/css" href="css/estilo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      height: 100vh;
+      background-color: #f0f0f0; 
+      padding: 20px;
+    }
+
+    ul {
+      list-style-type: none;
       margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    li {
+      float: left;
+      border-right: 1px solid #bbb;
+    }
+
+    li:last-child {
+      border-right: none;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+      background-color: #111;
+    }
+
+    .active {
+      background-color: #04AA6D;
     }
 
     .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; 
+      padding: 20px;
+    }
+
+    .form-container {
       background-color: #ffffff;
       border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -28,6 +63,7 @@
       max-width: 400px;
       border: 1px solid #ccc;
       margin: 20px;
+      margin-top: 50px; 
     }
 
     h1 {
@@ -37,13 +73,6 @@
       font-weight: bold;
       border-bottom: 2px solid #333;
       padding-bottom: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    h1 img {
-      margin-right: 10px;
     }
 
     label {
@@ -67,7 +96,7 @@
       outline: none;
     }
 
-    input[type="button"], input[type="submit"], a.boton-elegante {
+    input[type="button"], a.boton-elegante {
       display: inline-block;
       width: 100%;
       padding: 6px;
@@ -83,7 +112,7 @@
       margin-top: 8px;
     }
 
-    input[type="button"]:hover, input[type="submit"]:hover, a.boton-elegante:hover {
+    input[type="button"]:hover, a.boton-elegante:hover {
       background-color: #555;
     }
 
@@ -93,45 +122,15 @@
       font-size: 12px;
       color: #888;
     }
-
-    /* Menu de Navegação */
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-    }
-
-    li {
-      display: inline;
-      margin: 0 15px;
-    }
-
-    li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 14px 20px;
-      display: block;
-      transition: background-color 0.3s;
-    }
-
-    li a:hover, .active {
-      background-color: #04AA6D;
-      border-radius: 4px;
-    }
   </style>
 </head>
 <body>
 
   <!-- Menu de Navegação -->
   <ul>
-    <li><a href="index.html" class="active">Início</a></li>
+    <li><a href="index.html">Início</a></li>
     <li><a href="Conscliente.html">Clientes</a></li>
-    <li><a href="AlterarCliente.html">Alterar Cliente</a></li>
+    <li><a class="active" href="cadastroCliente.html">Cadastrar Cliente</a></li>
     <li><a href="conProduto.html">Produtos</a></li>
     <li><a href="conServicos.html">Serviços</a></li>
     <li><a href="ConsForn.html">Fornecedores</a></li>
@@ -139,41 +138,41 @@
 
   <!-- Conteúdo principal -->
   <div class="container">
-    <h1>
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Ícone" width="30px"> 
-      Sistema Barbearia
-    </h1>
-    <form id="cadastroCliente">
-      <label for="fname">Nome completo:</label>
-      <input type="text" id="fname" name="fname" required>
+    <div class="form-container">
+      <h1>
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Ícone" width="30px"> 
+        Sistema Barbearia - Cadastro de Cliente
+      </h1>
+      <form id="cadastroCliente">
+        <label for="fname">Nome completo:</label>
+        <input type="text" id="fname" name="fname" required>
 
-      <label for="cpf">CPF:</label>
-      <input type="text" id="cpf" name="cpf" required>
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required>
 
-      <label for="phone">Telefone:</label>
-      <input type="text" id="phone" name="phone" required>
+        <label for="phone">Telefone:</label>
+        <input type="text" id="phone" name="phone" required>
 
-      <label for="city">Cidade:</label>
-      <input type="text" id="city" name="city" required>
+        <label for="city">Cidade:</label>
+        <input type="text" id="city" name="city" required>
 
-      <label for="state">Estado:</label>
-      <select id="state" name="state" required>
-        <option value="SC">Santa Catarina</option>
-        <option value="PR">Paraná</option>
-        <option value="RS">Rio Grande do Sul</option>
-        <option value="DF">Distrito Federal</option>
-      </select>
+        <label for="state">Estado:</label>
+        <select id="state" name="state" required>
+          <option value="SC">Santa Catarina</option>
+          <option value="PR">Paraná</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="DF">Distrito Federal</option>
+        </select>
 
-      <input type="button" value="Cadastrar" onclick="cadastrarCliente()">
-      <a href="Conscliente.html" class="boton-elegante">Voltar</a>
-    </form>
+        <input type="button" value="Cadastrar" onclick="cadastrarCliente()">
+        <a href="Conscliente.html" class="boton-elegante">Voltar</a>
+      </form>
 
-    <div class="footer">© 2024 Barbearia</div>
+      <div class="footer">© 2024 Barbearia</div>
+    </div>
   </div>
 
   <script>
-
-
     function cadastrarCliente() {
       const nome = document.getElementById("fname").value;
       const cpf = document.getElementById("cpf").value;
@@ -190,4 +189,3 @@
   </script>
 </body>
 </html>
-
