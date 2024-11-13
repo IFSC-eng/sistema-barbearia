@@ -1,39 +1,193 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/estilo.css">
-  <title>Sistema Barbearia - Cadastro de Cliente</title>
-  </head>
+  <title>Sistema Barbearia - Cadastro de Clientes</title>
+  <link rel="stylesheet" type="text/css" href="css/estilo.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #ccc;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: bold;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 img {
+      margin-right: 10px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus, select:focus {
+      border-color: #333;
+      outline: none;
+    }
+
+    input[type="button"], input[type="submit"], a.boton-elegante {
+      display: inline-block;
+      width: 100%;
+      padding: 6px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+      text-align: center;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+
+    input[type="button"]:hover, input[type="submit"]:hover, a.boton-elegante:hover {
+      background-color: #555;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    /* Menu de Navegação */
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+    }
+
+    li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 14px 20px;
+      display: block;
+      transition: background-color 0.3s;
+    }
+
+    li a:hover, .active {
+      background-color: #04AA6D;
+      border-radius: 4px;
+    }
+  </style>
+</head>
 <body>
 
-  <h1>Cadastro de Cliente</h1>
+  <!-- Menu de Navegação -->
+  <ul>
+    <li><a href="index.html" class="active">Início</a></li>
+    <li><a href="Conscliente.html">Clientes</a></li>
+    <li><a href="AlterarCliente.html">Alterar Cliente</a></li>
+    <li><a href="conProduto.html">Produtos</a></li>
+    <li><a href="conServicos.html">Serviços</a></li>
+    <li><a href="ConsForn.html">Fornecedores</a></li>
+  </ul>
 
+  <!-- Conteúdo principal -->
   <div class="container">
-    <div class="form-container">
-      <form id="registerForm">
-        <label for="name">Nome completo:</label>
-        <input type="text" id="name" name="name" placeholder="Digite o nome completo" required>
-        
-        <label for="email">E-mail:</label>
-        <br>
-        <input type="email" id="email" name="email" placeholder="Digite o e-mail" required>
-        <br>
-        
-        <label for="cidade">Cidade:</label>
-        <input type="text" id="cidade" name="cidade" placeholder="Digite a cidade" required>
-        
-        <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" name="telefone" placeholder="Digite o telefone" required>
+    <h1>
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Ícone" width="30px"> 
+      Sistema Barbearia
+    </h1>
+    <form id="cadastroCliente">
+      <label for="fname">Nome completo:</label>
+      <input type="text" id="fname" name="fname" required>
 
-        <input type="submit" value="Cadastrar">
-        <div class="container">
-            <a href="ConsCliente.html" class="boton-elegante">Voltar</a>
-          </div>
-      </form>
-    </div>
+      <label for="cpf">CPF:</label>
+      <input type="text" id="cpf" name="cpf" required>
+
+      <label for="phone">Telefone:</label>
+      <input type="text" id="phone" name="phone" required>
+
+      <label for="city">Cidade:</label>
+      <input type="text" id="city" name="city" required>
+
+      <label for="state">Estado:</label>
+      <select id="state" name="state" required>
+        <option value="SC">Santa Catarina</option>
+        <option value="PR">Paraná</option>
+        <option value="RS">Rio Grande do Sul</option>
+        <option value="DF">Distrito Federal</option>
+      </select>
+
+      <input type="button" value="Cadastrar" onclick="cadastrarCliente()">
+      <a href="Conscliente.html" class="boton-elegante">Voltar</a>
+    </form>
+
+    <div class="footer">© 2024 Barbearia</div>
   </div>
 
+  <script>
+
+
+    function cadastrarCliente() {
+      const nome = document.getElementById("fname").value;
+      const cpf = document.getElementById("cpf").value;
+      const phone = document.getElementById("phone").value;
+      const city = document.getElementById("city").value;
+      const state = document.getElementById("state").value;
+
+      if (nome && cpf && phone && city && state) {
+        alert("Cliente cadastrado com sucesso!");
+      } else {
+        alert("Por favor, preencha todos os campos.");
+      }
+    }
+  </script>
 </body>
 </html>
+
