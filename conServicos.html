@@ -191,6 +191,79 @@
                 width: auto;
             }
         }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+      }
+
+      th, td {
+          padding: 10px;
+          border: 1px solid #999;
+          text-align: left;
+      }
+
+      th {
+          background-color: #333;
+          color: white;
+          font-weight: bold;
+      }
+
+      .btn-imprimir {
+          background-color: #333;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          cursor: pointer;
+          font-weight: bold;
+          border-radius: 4px;
+          transition: background-color 0.3s;
+          display: block;
+          margin: 20px auto 0;
+          width: 150px;
+          text-align: center;
+      }
+
+      .btn-imprimir:hover {
+          background-color: #555;
+      }
+
+      .modal {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.6);
+          justify-content: center;
+          align-items: center;
+      }
+
+      .modal-content {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 5px;
+          width: 600px;
+          max-width: 90%;
+          text-align: center;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .close-btn {
+          background-color: #333;
+          color: white;
+          border: none;
+          padding: 5px 10px;
+          cursor: pointer;
+          border-radius: 4px;
+          font-size: 14px;
+          float: right;
+      }
+
+      .close-btn:hover {
+          background-color: #555;
+      }
     </style>
 </head>
 <body>
@@ -203,7 +276,6 @@
     <li><a href="conProduto.html" >Produtos</a></li>
     <li><a href="conServicos.html" class="active">Serviços</a></li>
     <li><a href="ConsForn.html">Fornecedores</a></li>
-    <li><a href="ems_notasfiscais.html"> Notas Fiscais</a></li>
   </ul>
 
   <!-- Título -->
@@ -212,14 +284,11 @@
   <!-- Formulário de Filtro -->
   <div class="container">
     <form id="filtroRelatorio" onsubmit="gerarRelatorio(); return false;">
-        <label for="dataInicio">Data de Início:</label>
-        <input type="date" id="dataInicio" name="dataInicio">
+        <label for="data">Data</label>
+        <input type="date" id="data" name="data">
     
-        <label for="dataFim">Data de Fim:</label>
-        <input type="date" id="dataFim" name="dataFim">
-    
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" placeholder="Número do CPF:">
+        <label for="nome">Nome do Cliente</label>
+        <input type="text" id="nome" name="nome" placeholder="João Pedro Gonçalves">
     
         <label for="tipoServico">Tipo de serviço:</label>
         <select id="tipoServico" name="tipoServico">
@@ -229,78 +298,131 @@
             <option value="Barba">Barba</option>
             <option value="Corte completo + Barba">Corte completo + Barba</option>
         </select>
-    
-        <label for="tipoPagamento">Tipo de pagamento:</label>
-        <select id="tipoPagamento" name="tipoPagamento">
-            <option value="todos">Todos</option>
-            <option value="dinheiro">Dinheiro</option>
-            <option value="débito">Débito</option>
-            <option value="crédito">Crédito</option>
-            <option value="pix">Pix</option>
-            <option value="boleto">Boleto</option>
-        </select>
-    
         <input type="submit" value="Gerar Relatório">
     </form>
   </div>
 
   <!-- Tabela de Resultados -->
   <div class="container">
-    <table id="relatorio">
+    <table>
       <thead>
-        <tr>
-          <th>Data da Transação</th>
-          <th>CPF do cliente</th>
-          <th>Serviço realizado</th>
-          <th>Forma de pagamento</th>
-        </tr>
+          <tr>
+              <th>Data</th>
+              <th>Serviço Prestado</th>
+              <th>Nome do Cliente</th>
+              <th>Valor Unitário (R$)</th>
+              <th>Valor Total (R$)</th>
+              <th>Ações</th>
+          </tr>
       </thead>
-      <tbody id="tabelaRelatorio">
-        <tr class="no-data"><td colspan="4">Nenhum dado disponível. Gere um relatório.</td></tr>
+      <tbody id="tabelaNotas">
+          <tr data-date="2024-10-28">
+              <td>2024-10-28</td>
+              <td>Corte Completo</td>
+              <td>João Carlos Matos</td>
+              <td>60,00</td>
+              <td>60,00</td>
+              <td><button class="btn-imprimir" onclick="abrirNotaFiscal('Corte de Cabelo Masculino', 'João Carlos Matos', '60,00', '60,00')">Imprimir</button></td>
+          </tr>
+          <tr data-date="2024-10-27">
+              <td>2024-10-27</td>
+              <td>Barba</td>
+              <td>Tiago Freitas</td>
+              <td>50,00</td>
+              <td>50,00</td>
+              <td><button class="btn-imprimir" onclick="abrirNotaFiscal('Barba e Bigode', 'Tiago Freitas', '50,00', '50,00')">Imprimir</button></td>
+          </tr>
+          <tr data-date="2024-10-26">
+              <td>2024-10-26</td>
+              <td>Lavagem</td>
+              <td>Cesar Paulo</td>
+              <td>30,00</td>
+              <td>30,00</td>
+              <td><button class="btn-imprimir" onclick="abrirNotaFiscal('Excesso Sobrancelhas', 'Cesar Paulo', '30,00', '30,00')">Imprimir</button></td>
+          </tr>
+          <tr data-date="2024-10-25">
+              <td>2024-10-25</td>
+              <td>Barba</td>
+              <td>Pedro Silva</td>
+              <td>40,00</td>
+              <td>40,00</td>
+              <td><button class="btn-imprimir" onclick="abrirNotaFiscal('BARBA AVULSA', 'Pedro Silva', '40,00', '40,00')">Imprimir</button></td>
+          </tr>
+          <tr data-date="2024-10-24">
+              <td>2024-10-24</td>
+              <td>Corte Completo + Barba</td>
+              <td>José Santiago</td>
+              <td>
+                  60,00<br>
+                  50,00<br>
+                  30,00
+              </td>
+              <td>140,00</td>
+              <td>
+                  <button class="btn-imprimir" onclick="abrirNotaFiscal('Combo masculino completo (Barba e bigode, cabelo e sobrancelhas excesso)', 'José Santiago', '60,00<br>50,00<br>30,00', '140,00')">
+Imprimir
+                  </button>
+              </td>
+          </tr>
       </tbody>
-    </table>
+  </table>
+</div>
+
+
+
+          
+
+         
+         
+         
+         
+         
+      </tbody>
+  </table>
+</div>
+
+<div id="modalNotaFiscal" class="modal">
+  <div class="modal-content">
+      <button class="close-btn" onclick="fecharModal()">X</button>
+      <h2>Nota Fiscal</h2>
+      <p><strong>Serviço Prestado:</strong> <span id="descricaoItem"></span></p>
+      <p><strong>Nome do Cliente:</strong> <span id="nomeCliente"></span></p>
+      <p><strong>Valor Unitário:</strong> R$ <span id="valorUnitario"></span></p>
+      <p><strong>Valor Total:</strong> R$ <span id="valorTotal"></span></p>
+      <button class="btn-imprimir" onclick="imprimirNota()">Imprimir Nota</button>
   </div>
+</div>
 
-  <script>
-    function gerarRelatorio() {
-        const tabela = document.getElementById("tabelaRelatorio");
-        tabela.innerHTML = "";
+<script>
+  function filtrarData() {
+      const dataSelecionada = document.getElementById('data').value;
+      const tabelaNotas = document.getElementById('tabelaNotas');
+      const linhas = tabelaNotas.getElementsByTagName('tr');
 
-        const dataInicio = document.getElementById("dataInicio").value;
-        const dataFim = document.getElementById("dataFim").value;
-        const cpf = document.getElementById("cpf").value;
-        const tipoServico = document.getElementById("tipoServico").value.toLowerCase();
-        const tipoPagamento = document.getElementById("tipoPagamento").value.toLowerCase();
+      for (let i = 0; i < linhas.length; i++) {
+          const linha = linhas[i];
+          const dataNota = linha.getAttribute('data-date');
+          linha.style.display = dataNota === dataSelecionada || dataSelecionada === '' ? '' : 'none';
+      }
+  }
 
-        const dados = [
-            { data: '2024-10-23', cpf: '12345678913', servico: 'Lavagem', pagamento: 'débito' },
-            { data: '2024-07-08', cpf: '98765432122', servico: 'Corte completo + Barba', pagamento: 'crédito' },
-            { data: '2024-08-30', cpf: '45612389755', servico: 'Corte completo', pagamento: 'dinheiro' },
-            { data: '2024-04-12', cpf: '07983145606', servico: 'Barba', pagamento: 'pix' },
-        ];
+  function abrirNotaFiscal(servico, cliente, valorUnitario, valorTotal) {
+      document.getElementById('descricaoItem').innerText = servico;
+      document.getElementById('nomeCliente').innerText = cliente;
+      document.getElementById('valorUnitario').innerText = valorUnitario;
+      document.getElementById('valorTotal').innerText = valorTotal;
 
-        const dadosFiltrados = dados.filter(d => {
-            const dataValida = (!dataInicio || d.data >= dataInicio) && (!dataFim || d.data <= dataFim);
-            const cpfValido = !cpf || d.cpf.includes(cpf);
-            const servicoValido = tipoServico === 'todos' || d.servico.toLowerCase() === tipoServico;
-            const pagamentoValido = tipoPagamento === 'todos' || d.pagamento.toLowerCase() === tipoPagamento;
-            return dataValida && cpfValido && servicoValido && pagamentoValido;
-        });
+      document.getElementById('modalNotaFiscal').style.display = 'flex';
+  }
 
-        if (dadosFiltrados.length > 0) {
-            dadosFiltrados.forEach(d => {
-                const row = `<tr>
-                                <td>${d.data}</td>
-                                <td>${d.cpf}</td>
-                                <td>${d.servico}</td>
-                                <td>${d.pagamento}</td>
-                             </tr>`;
-                tabela.innerHTML += row;
-            });
-        } else {
-            tabela.innerHTML = '<tr class="no-data"><td colspan="4">Nenhum dado disponível.</td></tr>';
-        }
-    }
-  </script>
+  function fecharModal() {
+      document.getElementById('modalNotaFiscal').style.display = 'none';
+  }
+
+  function imprimirNota() {
+      window.print();
+  }
+</script>
+
 </body>
 </html>
