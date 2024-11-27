@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Ponto</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <style>
+        /* Resetando margens e padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        /* Barra de navegação */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+            border-right: 1px solid #bbb;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #04AA6D;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            margin: 20px;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        /* Tabela de resultados */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+        }
+
+        .btn-imprimir {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 20px auto 0;
+            width: 150px;
+            text-align: center;
+        }
+
+        .btn-imprimir:hover {
+            background-color: #555;
+        }
+
+    </style>
+</head>
+<body>
+
+  <!-- Barra de navegação -->
+  <ul>
+    <li><a href="index.html">Início</a></li>
+    <li><a href="ConsCliente.html">Clientes</a></li>
+    <li><a href="conProduto.html">Produtos</a></li>
+    <li><a href="conServicos.html">Serviços</a></li>
+    <li><a href="ConsForn.html">Fornecedores</a></li>
+    <li><a href="RegistroPonto.html" class="active">Registro de Ponto</a></li>
+  </ul>
+
+  <!-- Título -->
+  <h1>Registro de Ponto</h1>
+
+  <!-- Formulário de Registro de Ponto -->
+  <div class="container">
+    <form id="registroPonto" onsubmit="registrarPonto(); return false;">
+        <label for="dataPonto">Data</label>
+        <input type="date" id="dataPonto" name="dataPonto">
+    
+        <label for="nomeFuncionario">Nome do Funcionário</label>
+        <input type="text" id="nomeFuncionario" name="nomeFuncionario" placeholder="João Pedro Gonçalves">
+    
+        <label for="horaEntrada">Hora de Entrada</label>
+        <input type="time" id="horaEntrada" name="horaEntrada">
+    
+        <label for="horaSaida">Hora de Saída</label>
+        <input type="time" id="horaSaida" name="horaSaida">
+    
+        <input type="submit" value="Registrar Ponto">
+    </form>
+  </div>
+
+  <!-- Tabela de Resultados -->
+  <div class="container">
+    <table>
+      <thead>
+          <tr>
+              <th>Data</th>
+              <th>Funcionário</th>
+              <th>Hora de Entrada</th>
+              <th>Hora de Saída</th>
+              <th>Horas Trabalhadas</th>
+              <th>Ações</th>
+          </tr>
+      </thead>
+      <tbody id="tabelaPonto">
+          <!-- Exemplo de registro de ponto -->
+          <tr data-date="2024-11-25">
+              <td>2024-11-25</td>
+              <td>João Carlos Matos</td>
+              <td>08:00</td>
+              <td>17:00</td>
+              <td>9h</td>
+              <td><button class="btn-imprimir" onclick="imprimirRegistro('João Carlos Matos', '08:00', '17:00', '9h')">Imprimir</button></td>
+          </tr>
+          <tr data-date="2024-11-26">
+              <td>2024-11-26</td>
+              <td>Tiago Freitas</td>
+              <td>09:00</td>
+              <td>18:00</td>
+              <td>9h</td>
+              <td><button class="btn-imprimir" onclick="imprimirRegistro('Tiago Freitas', '09:00', '18:00', '9h')">Imprimir</button></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function registrarPonto() {
+        const dataPonto = document.getElementById('dataPonto').value;
+        const nomeFuncionario = document.getElementById('nomeFuncionario').value;
+        const horaEntrada = document.getElementById('horaEntrada').value;
+        const horaSaida = document.getElementById('horaSaida').value;
+        
+        // Calcular a quantidade de horas trabalhadas (exemplo simples)
+        const horasTrabalhadas = calcularHorasTrabalhadas(horaEntrada, horaSaida);
+
+        // Adicionar o registro à tabela
+        const tabela = document.getElementById('tabelaPonto');
+        const novaLinha = tabela.insertRow();
+
+        novaLinha.innerHTML = `
+            <td>${dataPonto}</td>
+            <td>${nomeFuncionario}</td>
+            <td>${horaEntrada}</td>
+            <td>${horaSaida}</td>
+            <td>${horasTrabalhadas}</td>
+            <td><button class="btn-imprimir" onclick="imprimirRegistro('${nomeFuncionario}', '${horaEntrada}', '${horaSaida}', '${horasTrabalhadas}')">Imprimir</button></td>
+            `;
+        }
+    
+        function calcularHorasTrabalhadas(horaEntrada, horaSaida) {
+            const [horaEntradaH, horaEntradaM] = horaEntrada.split(":").map(Number);
+            const [horaSaidaH, horaSaidaM] = horaSaida.split(":").map(Number());
+    
+            let entradaMinutos = horaEntradaH * 60 + horaEntradaM;
+            let saidaMinutos = horaSaidaH * 60 + horaSaidaM;
+    
+            // Verificar se a hora de saída é no dia seguinte (exemplo simples)
+            if (saidaMinutos < entradaMinutos) {
+                saidaMinutos += 24 * 60; // adicionar 24 horas (em minutos)
+            }
+    
+            const diferencaMinutos = saidaMinutos - entradaMinutos;
+            const horas = Math.floor(diferencaMinutos / 60);
+            const minutos = diferencaMinutos % 60;
+    
+            return `${horas}h ${minutos}m`;
+        }
+    
+        function imprimirRegistro(nomeFuncionario, horaEntrada, horaSaida, horasTrabalhadas) {
+            const conteudoImpressao = `
+                <h2>Registro de Ponto</h2>
+                <p><strong>Funcionário:</strong> ${nomeFuncionario}</p>
+                <p><strong>Hora de Entrada:</strong> ${horaEntrada}</p>
+                <p><strong>Hora de Saída:</strong> ${horaSaida}</p>
+                <p><strong>Horas Trabalhadas:</strong> ${horasTrabalhadas}</p>
+            `;
+    
+            const janelaImpressao = window.open('', '', 'height=500, width=800');
+            janelaImpressao.document.write('<html><head><title>Impressão do Registro de Ponto</title></head><body>');
+            janelaImpressao.document.write(conteudoImpressao);
+            janelaImpressao.document.write('</body></html>');
+            janelaImpressao.document.close();
+            janelaImpressao.print();
+        }
+      </script>
+    
+    </body>
+    </html>
+    

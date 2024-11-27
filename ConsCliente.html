@@ -3,19 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/estilo.css">
   <title>Sistema Barbearia - Consulta de Clientes</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+    }
+    
+    li {
+      float: left;
+      border-right: 1px solid #bbb;
+    }
+
+    li:last-child {
+      border-right: none;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+      background-color: #111;
+    }
+
+    .active {
+      background-color: #04AA6D;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #f4f4f4;
+    }
+
+    table td a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    table td a:hover {
+      color: #04AA6D;
+    }
+
+    .action-icons i {
+      cursor: pointer;
+      font-size: 18px;
+      margin-left: 10px;
+      color: #333;
+    }
+
+    .action-icons i:hover {
+      color: #f44336;
+    }
+  </style>
 </head>
 <body>
 
   <ul>
     <li><a href="index.html">Início</a></li>
-    <li><a class="active" href="Conscliente.html">Clientes</a></li>
-    <li><a href="AlterarCliente.html">Alterar Cliente</a></li>
+    <li><a class="active" href="ConsCliente.html">Clientes</a></li>
     <li><a href="conProduto.html">Produtos</a></li>
     <li><a href="conServicos.html">Serviços</a></li>
     <li><a href="ConsForn.html">Fornecedores</a></li>
-    <li><a href="ems_notasfiscais.html"> Notas Fiscais</a></li>
+    <li><a href="RegistroPonto.html">Registro de Ponto</a></li>
+
   </ul>
 
   <h1>Consulta de Clientes</h1>
@@ -30,7 +119,7 @@
     </div>
   </div>
 
-  <div class="container" style="justify-content: center;">
+  <div class="container">
     <table id="clientTable">
       <thead>
         <tr>
@@ -38,33 +127,37 @@
           <th>E-mail</th>
           <th>Cidade</th>
           <th>Telefone</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <!-- Exemplo de linha de cliente -->
+        <tr data-id="1">
           <td>João Pessoa</td>
           <td>joaop@hotmail.com</td>
           <td>Chapecó (SC)</td>
           <td>(49) 2101-2837</td>
+          <td class="action-icons">
+            <a href="AlterarCliente.html?nome=João%20Pessoa&cpf=000.000.000-00&telefone=(49)%202101-2837&cidade=Chapecó&estado=SC">
+              <i class="fas fa-pencil-alt" title="Editar"></i>
+            </a>
+            <i class="fas fa-trash" title="Excluir" onclick="confirmDelete(this)"></i>
+          </td>
         </tr>
-        <tr>
+        <!-- Exemplo de outro cliente -->
+        <tr data-id="2">
           <td>Maria Clara Neves</td>
           <td>marianeves123@gmail.com</td>
           <td>Pinhalzinho (SC)</td>
           <td>(47) 3112-7544</td>
+          <td class="action-icons">
+            <a href="AlterarCliente.html?nome=Maria%20Clara%20Neves&cpf=123.456.789-01&telefone=(47)%203112-7544&cidade=Pinhalzinho&estado=SC">
+              <i class="fas fa-pencil-alt" title="Editar"></i>
+            </a>
+            <i class="fas fa-trash" title="Excluir" onclick="confirmDelete(this)"></i>
+          </td>
         </tr>
-        <tr>
-          <td>Felipe Duarte da Silva</td>
-          <td>felipe23dias@outlook.com</td>
-          <td>Xaxim (SC)</td>
-          <td>(49) 2037-6570</td>
-        </tr>
-        <tr>
-          <td>Alan Melo Dias</td>
-          <td>alanmelo@gmail.com</td>
-          <td>São Miguel do Oeste (SC)</td>
-          <td>(49) 3025-4433</td>
-        </tr>
+        <!-- Adicione mais clientes aqui -->
       </tbody>
     </table>
   </div>
@@ -96,6 +189,17 @@
 
       table.style.display = found ? 'table' : 'none';
     });
+
+    // Função para confirmar a exclusão de um cliente
+    function confirmDelete(element) {
+      const row = element.closest('tr'); // Encontra a linha mais próxima
+      const nome = row.cells[0].textContent; // Pega o nome do cliente
+
+      if (confirm(`Tem certeza que deseja excluir o cliente ${nome}?`)) {
+        row.remove(); // Remove a linha da tabela
+        alert(`${nome} excluído com sucesso!`);
+      }
+    }
   </script>
 
 </body>

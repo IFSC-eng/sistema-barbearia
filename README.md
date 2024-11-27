@@ -1,8 +1,4 @@
-<div align="center">
-<img alt="Dosh-pic" height="150" style="border-radius:50px;" src="https://github.com/IFSC-eng/sistema-barbearia/blob/main/logobarber.png">
-</div>
-
-## 💈 Sistema de Gestão para Barbearia
+# 💈 Sistema de Gestão para Barbearia
 
 Este repositório contém um **Sistema de Gestão de Barbearia** desenvolvido como trabalho escolar. O projeto é focado na criação de uma interface amigável para cadastro, consulta e gerenciamento de clientes, produtos e serviços em uma barbearia.
 

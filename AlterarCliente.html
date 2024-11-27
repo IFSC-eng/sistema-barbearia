@@ -145,12 +145,11 @@
 
   <ul>
     <li><a href="index.html">Início</a></li>
-    <li><a href="ConsCliente.html">Clientes</a></li>
-    <li><a class="active" href="AlterarCliente.html">Alterar Cliente</a></li>
+    <li><a class="active" href="ConsCliente.html">Clientes</a></li>
     <li><a href="conProduto.html">Produtos</a></li>
     <li><a href="conServicos.html">Serviços</a></li>
     <li><a href="ConsForn.html">Fornecedores</a></li>
-    <li><a href="ems_notasfiscais.html"> Notas Fiscais</a></li>
+    <li><a href="RegistroPonto.html">Registro de Ponto</a></li>
   </ul>
 
   <div class="container">
@@ -196,6 +195,25 @@
   </div>
 
   <script>
+    // Preencher os campos com os dados passados pela URL
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const nome = urlParams.get('nome');
+      const cpf = urlParams.get('cpf');
+      const telefone = urlParams.get('telefone');
+      const cidade = urlParams.get('cidade');
+      const estado = urlParams.get('estado');
+
+      if (nome && cpf && telefone && cidade && estado) {
+        document.getElementById('fname').value = nome;
+        document.getElementById('cpf').value = cpf;
+        document.getElementById('telefone').value = telefone;
+        document.getElementById('city').value = cidade;
+        document.getElementById('state').value = estado;
+      }
+    };
+
+    // Função para formatação do CPF
     document.getElementById('cpf').addEventListener('input', function () {
       this.value = this.value
           .replace(/\D/g, '') // Remove caracteres não numéricos
@@ -204,6 +222,7 @@
           .replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Adiciona o hífen
     });
 
+    // Função para formatação do telefone
     document.getElementById('telefone').addEventListener('input', function () {
       this.value = this.value
           .replace(/\D/g, '') // Remove caracteres não numéricos
@@ -211,6 +230,7 @@
           .replace(/(\d{5})(\d)/, '$1-$2'); // Adiciona o hífen
     });
 
+    // Função para alterar cliente
     function altCliente() {
       const nome = document.getElementById("fname").value;
       const cpf = document.getElementById("cpf").value;
@@ -225,6 +245,7 @@
       }
     }
 
+    // Função para confirmar exclusão de cliente
     function confirmDelete() {
       if (confirm("Tem certeza que deseja apagar este cliente?")) {
         alert("Cliente apagado com sucesso!");
