@@ -61,8 +61,8 @@ Acesse o diretório do projeto:
     └── estilo.css            # Arquivo de Estilos CSS
 ```
 
-##📝 Licença
+## 📝 Licença
 Este projeto foi desenvolvido para fins educacionais.
 
-##📧 Contato
+## 📧 Contato
 Para dúvidas ou sugestões sobre este projeto, entre em contato através de suportesistemabarbearia@gmail.com.
