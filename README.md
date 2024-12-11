@@ -50,7 +50,7 @@ Acesse o diretório do projeto:
 
 3. Abra o arquivo ||index.html|| diretamente em um navegador para visualizar a página inicial e navegar pelo sistema.
 
-##⚙️ Estrutura do Projeto
+## ⚙️ Estrutura do Projeto
 ```plaintext
 ├── index.html                # Página Inicial do Sistema
 ├── Conscliente.html          # Página para Consulta de Clientes
