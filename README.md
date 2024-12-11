@@ -48,7 +48,7 @@ Acesse o diretório do projeto:
    ```bash
    cd sistema-barbearia
 
-3. Abra o arquivo ||index.html|| diretamente em um navegador para visualizar a página inicial e navegar pelo sistema.
+3. Abra o arquivo || index.html || diretamente em um navegador para visualizar a página inicial e navegar pelo sistema.
 
 ## ⚙️ Estrutura do Projeto
 ```plaintext
