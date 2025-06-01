@@ -1,6 +1,7 @@
 <p align="center">
   <img width="30%" height="30%" src="logobarber.png">
 </p>
+
 ## 💈 Sistema de Gestão para Barbearia
 
 Este repositório contém um **Sistema de Gestão de Barbearia** desenvolvido como trabalho escolar. O projeto é focado na criação de uma interface amigável para cadastro, consulta e gerenciamento de clientes, produtos e serviços em uma barbearia.
